@@ -22,12 +22,12 @@ jobs:
       - name: Update README
         run: |
           echo 'Download Terraform Docs'
-          curl -sSLo ${TEMP}/terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64.tar.gz 
-          tar -xzf ${TEMP}/terraform-docs.tar.gz
-          chmod +x ${TEMP}/terraform-docs              
+          curl -sSLo terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64.tar.gz 
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs              
 
           echo 'Update README'
-          ./${TEMP}/terraform-docs -c ./terraform-docs.yml ./
+          ./terraform-docs -c ./terraform-docs.yml ./
 
           echo 'Update repository'
           git config user.name 'Wizsolucoes Bot'
