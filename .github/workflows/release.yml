@@ -32,8 +32,8 @@ jobs:
           echo 'Update repository'
           git config user.name 'Wizsolucoes Bot'
           git config user.email 'devopssu@wizsolucoes.com.br'         
-          git add .
-          git commit -am 'doc: update readme.md  [skip ci]'
+          git add -A
+          git commit -am 'doc(README): update readme.md  [skip ci]'
           git push --no-verify
           
   release:
