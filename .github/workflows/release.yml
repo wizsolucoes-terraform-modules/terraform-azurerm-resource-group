@@ -34,7 +34,7 @@ jobs:
           git config user.email 'devopssu@wizsolucoes.com.br'         
           git add .
           git commit -am 'doc: update readme.md  [skip ci]'
-          git push 
+          git push --no-verify
           
   release:
     name: Release
