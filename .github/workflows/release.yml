@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "**/*.tpl"
+      - "**/*.py"
+      - "**/*.tf"
+      - ".github/workflows/release.yml"
+
+jobs:
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Update README
+        run: |
+          echo 'Download Terraform Docs'
+          curl -sSLo ${TEMP}/terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64.tar.gz 
+          tar -xzf ${TEMP}/terraform-docs.tar.gz
+          chmod +x ${TEMP}/terraform-docs              
+
+          echo 'Update README'
+          ./${TEMP}/terraform-docs -c ./terraform-docs.yml ./
+
+          echo 'Update repository'
+          git config user.name 'Wizsolucoes Bot'
+          git config user.email 'devopssu@wizsolucoes.com.br'         
+          git add .
+          git commit -am 'doc: update readme.md  [skip ci]'
+          git push
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: docs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Release
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          semantic_version: 18.0.0
+          extra_plugins: |
+            @semantic-release/changelog@6.0.0
+            @semantic-release/git@10.0.0
+            conventional-changelog-conventionalcommits@4.6.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
