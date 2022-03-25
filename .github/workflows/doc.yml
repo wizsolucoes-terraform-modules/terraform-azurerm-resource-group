@@ -28,7 +28,7 @@ jobs:
           git config user.name 'Wizsolucoes Bot'
           git config user.email 'devopssu@wizsolucoes.com.br'         
           git add -A
-          if [ git status | grep -i -c "[a-z]"> 2 ];
+          if [ -n "$(git status --porcelain)" ]; then
           then
             git commit -am 'doc(README): update readme.md  [skip ci]'
             git push
