@@ -1,11 +1,9 @@
-name: Doc
-
+name: "Doc"
 on:
   push:
     branches:
       - !main
       - !master
-
 jobs:
   docs:
     name: Documentation
