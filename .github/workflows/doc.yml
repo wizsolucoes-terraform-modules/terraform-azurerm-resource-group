@@ -21,14 +21,16 @@ jobs:
           tar -xzf terraform-docs.tar.gz
           chmod +x terraform-docs              
 
-          echo 'Update README'
+          echo 'Generate README'
           ./terraform-docs -c ./terraform-docs.yml ./
-
-          echo 'Update repository'
+          
           git config user.name 'Wizsolucoes Bot'
           git config user.email 'devopssu@wizsolucoes.com.br'         
           git add -A
-          if [ -n "$(git status --porcelain)" ]; then          
+          if [ -n "$(git status --porcelain)" ]; then 
+            echo 'Update repository'
             git commit -am 'doc(README): update readme.md  [skip ci]'
             git push
+          else
+            echo 'Don't have changes'
           fi
