@@ -1,0 +1,32 @@
+name: "Doc"
+on:
+  push:
+    branches-ignore:
+      - "main"
+      - "master"
+jobs:
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Update README
+        run: |
+          echo 'Download Terraform Docs'
+          curl -sSLo terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64.tar.gz 
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs    
+
+          ./terraform-docs -c ./terraform-docs.yml ./
+
+          git config user.name 'Wizsolucoes Bot'
+          git config user.email 'devopssu@wizsolucoes.com.br'         
+          git add -A
+          if [ -n "$(git status --porcelain)" ]; then 
+            echo 'Update repository'
+            git commit -am 'doc(README): update readme.md  [skip ci]'
+            git push origin ${{ env.GITHUB_REF_NAME }}
+          else
+            echo 'There is no change'
+          fi
