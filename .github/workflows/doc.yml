@@ -1,11 +1,10 @@
 name: Doc
 
 on:
-  pull_request:
+  pull:
     branches:
-      - main
-      - master
-  workflow_dispatch:
+      - !main
+      - !master
 
 jobs:
   docs:
