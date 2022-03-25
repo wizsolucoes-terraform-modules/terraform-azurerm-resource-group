@@ -1,9 +1,9 @@
 name: "Doc"
 on:
   push:
-    branches:
-      - "!main"
-      - "!master"
+    branches-ignore:
+      - "main"
+      - "master"
 jobs:
   docs:
     name: Documentation
