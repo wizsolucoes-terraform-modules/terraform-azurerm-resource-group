@@ -28,9 +28,8 @@ jobs:
           git config user.name 'Wizsolucoes Bot'
           git config user.email 'devopssu@wizsolucoes.com.br'         
           git add -A
-          git commit -am 'doc(README): update readme.md  [skip ci]'
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          if [ git status | grep -i -c "[a-z]"> 2 ];
+          then
+            git commit -am 'doc(README): update readme.md  [skip ci]'
+            git push
+          fi
