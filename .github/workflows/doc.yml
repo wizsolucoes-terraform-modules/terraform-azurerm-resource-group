@@ -19,9 +19,8 @@ jobs:
           echo 'Download Terraform Docs'
           curl -sSLo terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64.tar.gz 
           tar -xzf terraform-docs.tar.gz
-          chmod +x terraform-docs              
-
-          echo 'Generate README'
+          chmod +x terraform-docs    
+          
           ./terraform-docs -c ./terraform-docs.yml ./
           
           git config user.name 'Wizsolucoes Bot'
@@ -32,5 +31,5 @@ jobs:
             git commit -am 'doc(README): update readme.md  [skip ci]'
             git push
           else
-            echo 'Don't have changes'
+            echo 'There is no change'
           fi
