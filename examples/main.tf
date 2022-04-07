@@ -1,4 +1,10 @@
-module "wflow" {
-  source  = "./modules/azurerm_solucao/v_0_0_1"
-  solucao = "Wflow"
+module "example" {
+  source  = "./../"
+  solucao = "example"
+  ambiente = "hml"
+  unidade= "corporate"
+  diretoria = "teste"
+  superintendencia = "teste"
+  gerencia = "teste"
+  squad = "teste" 
 }

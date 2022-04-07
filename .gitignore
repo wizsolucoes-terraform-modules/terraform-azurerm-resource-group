@@ -31,3 +31,6 @@ override.tf.json
 # Terraform Docs
 terraform-docs.tar.gz
 terraform-docs
+.terraform.lock.hcl
+*tfplan*
+test_report.html

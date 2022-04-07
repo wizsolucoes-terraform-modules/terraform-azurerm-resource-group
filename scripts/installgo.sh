@@ -1,5 +1,6 @@
-# codenoid
-# https://gist.github.com/codenoid/4806365032bb4ed62f381d8a76ddb8e6
+printf "Install build-essential\n";
+apt-get install build-essential
+
 printf "Checking latest Go version...\n";
 LATEST_GO_VERSION="$(curl --silent https://go.dev/VERSION?m=text)";
 TEMP=$(mktemp -p /data/path/to/results/ ${LATEST_GO_VERSION}.linux-amd64.tar.gz)
@@ -19,11 +20,11 @@ export GOROOT="${INSTALL_PATH_GO}/go"
 export GOPATH="${INSTALL_PATH_GO}/go/packages"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
-printf '
-export GOROOT="${INSTALL_PATH_GO}/go"
-export GOPATH="${INSTALL_PATH_GO}/go/packages"
+printf "
+export GOROOT=${INSTALL_PATH_GO}/go
+export GOPATH=${INSTALL_PATH_GO}/go/packages
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-\n' > /etc/profile.d/go.sh
+\n" > /etc/profile.d/go.sh
 
 printf "Remove temp files\n";
 rm "${LATEST_GO_VERSION}.linux-amd64.tar.gz" -f
